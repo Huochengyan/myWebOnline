@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>我的测试页面。。</title>
+    <script type="text/javascript" src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/angular.js/1.4.6/angular.min.js"></script>
+    <script type="text/javascript">
+        function ff() {
+            $.post("http://192.168.1.106:8080/gcschat/chatroommember/getAllChatroommemberByUserId?accountId=7", function (data, status) {
+                console.log(data.chatroommemberList);
+                return data.chatroommemberList;
+            });
+        }
+        var app = angular.module("myApp", []);
+        app.controller("myCtrl", function ($scope) {
+            $scope.records = ff();
+        });
+        $(window).blur(function () {
+
+            TimerEndsFunction();
+
+        });
+
+        $(window).focus(function () {
+
+            TimerStartsFunction;
+
+        }); 
+
+        localStorage.setItem(Date.parse(new Date()), Date.parse(new Date()));
+        //console.log(localStorage.getItem().length.toString());
+    </script>
+</head>
+<body ng-app="myApp" >
+    <input type="button" value="load" onclick="ff()"/>
+    <div id="div_init">
+        <div ng-app="" ng-init="names =[{ name: 'Jani', country: 'Norway' },{ name: 'Hege', country: 'Sweden' },{ name: 'Kai', country: 'Denmark' }]">
+
+            <p></p>
+            <ul>
+                <li ng-repeat="x in names">
+                    {{ x.name + ', ' + x.country }}
+                </li>
+            </ul>
+        </div>
+        <div ng-controller="myCtrl">
+
+            <p></p>
+            <ul>
+                <li ng-repeat="x in records">
+                    {{ x.chatroomId + ', ' + x.memberName }}
+                </li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

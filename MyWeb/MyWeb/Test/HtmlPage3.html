@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script>
+        $(function () {
+            $("#showNoti").click(function () {
+                if (!window.Notification) {
+                    alert("浏览器不支持通知！");
+                }
+                console.log(window.Notification.permission);
+                         if (window.Notification.permission != 'granted') {
+                    Notification.requestPermission(function (status) {
+                        //status是授权状态，如果用户允许显示桌面通知，则status为'granted'
+                        console.log('status: ' + status);
+                        //permission只读属性:
+                        //  default 用户没有接收或拒绝授权 不能显示通知
+                        //  granted 用户接受授权 允许显示通知
+                        //  denied  用户拒绝授权 不允许显示通知
+                        var permission = Notification.permission;
+                        console.log('permission: ' + permission);
+                    });
+                }
+                var n = new Notification("您有一条消息！", { "icon": "", "body": "您一分钟后将有好运气" });
+                n.onshow = function () {
+                    console.log("显示通知");
+                    setTimeout(function () { n.close() }, 2000);
+                }; n.onclick = function () {
+                    alert("打开相关视图");
+                    window.open("/Home/about"); n.close();
+                }; n.onclose = function () { console.log("通知关闭"); };
+                n.onerror = function () { console.log('产生错误');
+                    //do something useful
+                };
+            });
+        });
+
+
+
+        var flag = 0;
+        function sendgc()
+        {
+            flag++;
+            if (flag > 200)
+            {
+              window.clearInterval(t1); return;
+            }
+            $("#chat_textarea").html("你是谁加我干嘛？");
+            $("#send_chat_btn").click();
+        }
+        var t1 = window.setInterval(sendgc, 2000);
+
+
+    </script>
+</head>
+<body>
+    <div class="row">
+        <div class="col-md-12">
+            <button id="showNoti">显示通知</button>
+        </div>
+    </div>
+
+   
+</body>
+</html>
+
