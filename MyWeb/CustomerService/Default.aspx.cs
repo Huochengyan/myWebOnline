@@ -11,11 +11,6 @@ namespace CustomerService
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
-        }
-
-        protected void Button1_Click(object sender, EventArgs e)
-        {
             try
             {
                 Websocket.WebsocketServer server = new Websocket.WebsocketServer();
@@ -25,6 +20,11 @@ namespace CustomerService
             {
                 Console.WriteLine(ex.ToString());
             }
+        }
+
+        protected void Button1_Click(object sender, EventArgs e)
+        {
+           
         }
     }
 }

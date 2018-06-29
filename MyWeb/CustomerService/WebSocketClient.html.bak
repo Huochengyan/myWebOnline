@@ -1,0 +1,45 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <script type="text/javascript">
+        var wsClient = null;
+        //判断当前浏览器是否支持WebSocket
+        if ('WebSocket' in window) {
+            wsClient = new WebSocket('ws://localhost:60153');
+        }
+        else {
+            alert('当前浏览器 Not support websocket')
+        }
+        wsClient.open = function (e) {
+            console.log("Connected!");
+            wsClient.send('{"userName":"client1","phone": "13718562190"}');
+        }
+        wsClient.onclose = function (e) {
+            console.log("Disconnected!");
+          
+        }
+        wsClient.onmessage = function (e) {
+            console.log("接收消息:" + e.data);
+            document.getElementById("textarea1").innerHTML += e.data;
+        }
+        wsClient.onerror = function (e) {
+            console.log(e.data);
+        }
+        function send() {
+            var oText = document.getElementById("message");
+            wsClient.send(oText.value);
+        }
+    </script>
+</head>
+<body>
+    <span>发：</span>
+    <input type="button" id="send" onclick="send()" value="发送">
+    <input type="text" id="message">
+    <br />
+    <span>收：</span>
+    <textarea id="textarea1" style="height:200px;">
+    </textarea>
+</body>
+</html>

@@ -4,15 +4,25 @@
     <meta charset="utf-8" />
     <title></title>
     <script type="text/javascript">
-        var wsClient = new WebSocket('ws://localhost:60152');
+        var wsClient = null;
+        //判断当前浏览器是否支持WebSocket
+        if ('WebSocket' in window) {
+            wsClient = new WebSocket('ws://localhost:60152/user1');
+        }
+        else {
+            alert('当前浏览器 Not support websocket')
+        }
         wsClient.open = function (e) {
             console.log("Connected!");
+            wsClient.send('{"userName":"client1","phone": "13718562190"}');
         }
         wsClient.onclose = function (e) {
             console.log("Disconnected!");
+          
         }
         wsClient.onmessage = function (e) {
             console.log("接收消息:" + e.data);
+            document.getElementById("textarea1").innerHTML += e.data;
         }
         wsClient.onerror = function (e) {
             console.log(e.data);
@@ -24,8 +34,12 @@
     </script>
 </head>
 <body>
+    <span style="display:block;">收：</span>
+    <textarea id="textarea1" style="height:200px;">
+    </textarea>
+    <br />
+    <span>发：</span>
+    <input type="text" placeholder="要送的内容" id="message">
     <input type="button" id="send" onclick="send()" value="发送">
-      <input type="text" id="message">
-     
-    </body>
+</body>
 </html>

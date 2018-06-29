@@ -1,8 +1,10 @@
 ﻿using CustomerService.Como;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SuperWebSocket;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -18,7 +20,7 @@ namespace CustomerService
     public class Msg : IHttpHandler
     {
         //服务器日志类 
-        Log log = new Log(AppDomain.CurrentDomain.BaseDirectory + @"/log/Log.txt");
+        static Log log = new Log(AppDomain.CurrentDomain.BaseDirectory + @"/log/Log.txt");
         static string token = "myxiaochengxu123";//自定义字段(自己填写3-32个字符)
        static string corpId = "wx02140b1fd6f19044";
        static string AppSecret = "d6e4258791c9b6891541e9b0d178d97f";
@@ -37,6 +39,25 @@ namespace CustomerService
                     Byte[] postBytes = new Byte[stream.Length];
                     stream.Read(postBytes, 0, (Int32)stream.Length);
                     postString = Encoding.UTF8.GetString(postBytes);
+
+                    JObject job =(JObject)JsonConvert.DeserializeObject(postString);
+                    
+                    job.GetValue("FromUserName");
+                    job.GetValue("ToUserName");
+                    job.GetValue("Content");                  
+                    job.GetValue("CreateTime");
+                    Websocket.WebsocketServer.queueMsg.Enqueue(job);
+                  
+         
+                    while (Websocket.WebsocketServer.queueMsg.Count > 0)
+                    {
+                        JObject msg = Websocket.WebsocketServer.queueMsg.Dequeue();
+                        foreach (var item in Websocket.WebsocketServer.dicSession)
+                        {
+                            WebSocketSession webSocket = item.Value;
+                            webSocket.Send(msg.ToString());
+                        }
+                    }
                 }
 
                 if (!string.IsNullOrEmpty(postString))
@@ -107,7 +128,7 @@ namespace CustomerService
         /// </summary>
         /// <param name="UserID"></param>
         /// <param name="StrMessg"></param>
-        private void SendMessage(string UserID, string StrMessg)
+        public static void SendMessage(string UserID, string StrMessg)
         {      
             string Access_Token = GetAccess_token();
             if (Access_Token == "")
@@ -133,7 +154,7 @@ namespace CustomerService
         /// 获取Access_token的值
         /// </summary>
         /// <returns></returns>
-        private  string GetAccess_token()
+        private  static string GetAccess_token()
         {    
             string url = String.Format("https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid={0}&corpsecret={1}", corpId, AppSecret);
             string access_tokenjson = WebRequestAction.GetUrl(url);

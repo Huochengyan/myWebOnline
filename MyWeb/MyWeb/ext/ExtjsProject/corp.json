@@ -1,0 +1,133 @@
+﻿{
+  "statusCode": 200,
+  "result": "success",
+  "message": "操作成功",
+  "data": {
+    "userKey": null,
+    "operationUserName": "",
+    "operationUserId": null,
+    "roleId": null,
+    "operationSubjectId": null,
+    "roleCode": null,
+    "roleName": null,
+    "status": null,
+    "wasCanDelete": null,
+    "createUser": null,
+    "createTime": null,
+    "modifyUser": null,
+    "modifyTime": null,
+    "functionTreeIds": null,
+    "treeInfoList": [
+      {
+        "treeName": "系统管理",
+        "children": [
+          {
+            "treeName": "组织机构",
+            "children": [],
+            "parentTreeId": 1,
+            "functionTreeId": 2,
+            "isChecked": false
+          },
+          {
+            "treeName": "用户管理",
+            "children": [],
+            "parentTreeId": 1,
+            "functionTreeId": 3,
+            "isChecked": false
+          },
+          {
+            "treeName": "角色管理",
+            "children": [],
+            "parentTreeId": 1,
+            "functionTreeId": 4,
+            "isChecked": false
+          },
+          {
+            "treeName": "批量授权管理",
+            "children": [],
+            "parentTreeId": 1,
+            "functionTreeId": 5,
+            "isChecked": false
+          }
+        ],
+        "parentTreeId": -1,
+        "functionTreeId": 1,
+        "isChecked": false
+      },
+      {
+        "treeName": "基础信息管理",
+        "children": [
+          {
+            "treeName": "线路车站管理",
+            "children": [],
+            "parentTreeId": 6,
+            "functionTreeId": 7,
+            "isChecked": false
+          },
+          {
+            "treeName": "工区管理",
+            "children": [],
+            "parentTreeId": 6,
+            "functionTreeId": 8,
+            "isChecked": false
+          }
+        ],
+        "parentTreeId": -1,
+        "functionTreeId": 6,
+        "isChecked": false
+      },
+      {
+        "treeName": "备件管理",
+        "children": [
+          {
+            "treeName": "备件类型",
+            "children": [],
+            "parentTreeId": 9,
+            "functionTreeId": 10,
+            "isChecked": false
+          },
+          {
+            "treeName": "备件管理",
+            "children": [],
+            "parentTreeId": 9,
+            "functionTreeId": 11,
+            "isChecked": false
+          }
+        ],
+        "parentTreeId": -1,
+        "functionTreeId": 9,
+        "isChecked": false
+      },
+      {
+        "treeName": "库存管理",
+        "children": [
+          {
+            "treeName": "供应商管理",
+            "children": [],
+            "parentTreeId": 12,
+            "functionTreeId": 13,
+            "isChecked": false
+          },
+          {
+            "treeName": "仓库管理",
+            "children": [],
+            "parentTreeId": 12,
+            "functionTreeId": 14,
+            "isChecked": false
+          },
+          {
+            "treeName": "库存管理",
+            "children": [],
+            "parentTreeId": 12,
+            "functionTreeId": 15,
+            "isChecked": false
+          }
+        ],
+        "parentTreeId": -1,
+        "functionTreeId": 12,
+        "isChecked": false
+      }
+    ],
+    "userLoginInfo": null
+  }
+}
